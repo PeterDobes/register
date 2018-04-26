@@ -24,7 +24,7 @@ public class ConsoleUI {
      */
     private enum Option {
         PRINT, ADD, UPDATE, REMOVE, FIND, EXIT
-    };
+    }
     
     public ConsoleUI(Register register) {
         this.register = register;
@@ -93,8 +93,8 @@ public class ConsoleUI {
         System.out.println("Enter Phone Number: ");
         String phoneNumber = readLine();
         for(int i = 0; i < register.getCount(); i++) {
-            if(register.getPerson(i).getName().equals(name) ||
-                    register.getPerson(i).getPhoneNumber().equals(phoneNumber)) {
+            if(register.findPersonByName(name) != null ||
+                    register.findPersonByPhoneNumber(phoneNumber) != null) {
                 System.out.println("Person with this name or phone number already exists");
                 return;
             }

@@ -78,7 +78,12 @@ public class Register {
      * @return person with specified phone number
      */
     public Person findPersonByPhoneNumber(String phoneNumber) {
-        throw new UnsupportedOperationException("Method findPersonByPhoneNumber not yet implemented");
+        for(int i = 0; i < getCount(); i++) {
+            if(persons[i].getPhoneNumber().equals(phoneNumber)) {
+                return persons[i];
+            }
+        }
+        return null;
     }
 
     /**
