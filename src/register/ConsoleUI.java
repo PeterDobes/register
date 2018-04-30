@@ -138,6 +138,9 @@ public class ConsoleUI {
         Person result;
         if(m.matches()) {
             result = register.findPersonByPhoneNumber(input);
+            if (result == null) {
+                result = register.findPersonByName(input);
+            }
         } else {
             result = register.findPersonByName(input);
         }
