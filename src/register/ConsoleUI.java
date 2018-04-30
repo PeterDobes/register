@@ -162,7 +162,7 @@ public class ConsoleUI {
             } else {
                 System.out.println("Wrong input, try again");
             }
-        } while (index < 0 || index > register.getCount());
+        } while (index <= 0 || index > register.getCount());
         Person person = register.getPerson(index - 1);
         register.removePerson(person);
     }
