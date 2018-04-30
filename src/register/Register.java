@@ -53,6 +53,11 @@ public class Register {
     public void addPerson(Person person) {
         if(findPersonByName(person.getName()) == null &&
                 findPersonByPhoneNumber(person.getPhoneNumber()) == null) {
+            if (getCount() == getSize()) {
+                Person[] newPersons = new Person[getSize() + 20];
+                System.arraycopy(persons, 0, newPersons, 0, persons.length);
+                persons = newPersons;
+            }
             persons[count] = person;
             count++;
         }

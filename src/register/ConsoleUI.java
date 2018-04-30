@@ -73,9 +73,15 @@ public class ConsoleUI {
         System.out.println("-----------------------------------------------");
         
         int selection = -1;
+        String input;
         do {
             System.out.println("Option: ");
-            selection = Integer.parseInt(readLine());
+            input = readLine();
+            if (!Pattern.matches("\\D+", input)) {
+                selection = Integer.parseInt(input);
+            } else {
+                System.out.println("Wrong input, try again");
+            }
         } while (selection <= 0 || selection > Option.values().length);
         
         return Option.values()[selection - 1];
@@ -104,10 +110,16 @@ public class ConsoleUI {
 
     private void updateRegister() {
         int index = 0;
+        String input;
         printRegister();
         do {
             System.out.println("Person's number: ");
-            index = Integer.parseInt(readLine());
+            input = readLine();
+            if (!Pattern.matches("\\D", input)) {
+                index = Integer.parseInt(input);
+            } else {
+                System.out.println("Wrong input, try again");
+            }
         } while (index <= 0 || index > register.getCount());
 
         System.out.println("Enter new name: ");
@@ -137,8 +149,17 @@ public class ConsoleUI {
     }
     
     private void removeFromRegister() {
-        System.out.println("Enter index: ");
-        int index = Integer.parseInt(readLine());
+        int index = -1;
+        String input;
+        do {
+            System.out.println("Enter index: ");
+            input = readLine();
+            if (!Pattern.matches("\\D+", input)) {
+                index = Integer.parseInt(input);
+            } else {
+                System.out.println("Wrong input, try again");
+            }
+        } while (index < 0 || index > register.getCount());
         Person person = register.getPerson(index - 1);
         register.removePerson(person);
     }
