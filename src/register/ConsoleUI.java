@@ -113,7 +113,7 @@ public class ConsoleUI {
         String input;
         printRegister();
         do {
-            System.out.println("Person's number: ");
+            System.out.println("Option: ");
             input = readLine();
             if (!Pattern.matches("\\D", input)) {
                 index = Integer.parseInt(input);
