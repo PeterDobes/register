@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
  * User interface of the application.
  */
 public class ConsoleUI {
-    /** register.Register of persons. */
-    private Register register;
+    /** arrayRegister.ArrayRegister of persons. */
+    private ListRegister register;
     
     /**
      * In JDK 6 use Console class instead.
@@ -26,7 +26,7 @@ public class ConsoleUI {
         PRINT, ADD, UPDATE, REMOVE, FIND, EXIT
     }
     
-    public ConsoleUI(Register register) {
+    public ConsoleUI(ListRegister register) {
         this.register = register;
     }
     
@@ -77,7 +77,7 @@ public class ConsoleUI {
         do {
             System.out.println("Option: ");
             input = readLine();
-            if (!Pattern.matches("\\D+", input)) {
+            if (!Pattern.matches("[\\D]*", input)) {
                 selection = Integer.parseInt(input);
             } else {
                 System.out.println("Wrong input, try again");
@@ -89,7 +89,7 @@ public class ConsoleUI {
 
     private void printRegister() {
         for(int i = 0; i < register.getCount(); i++) {
-            System.out.println((i+1)+". "+register.getPerson(i).toString());
+            System.out.println((i+1)+". "+ register.getPerson(i).toString());
         }
     }
     
@@ -115,7 +115,7 @@ public class ConsoleUI {
         do {
             System.out.println("Option: ");
             input = readLine();
-            if (!Pattern.matches("\\D", input)) {
+            if (!Pattern.matches("\\D*", input)) {
                 index = Integer.parseInt(input);
             } else {
                 System.out.println("Wrong input, try again");
@@ -157,10 +157,10 @@ public class ConsoleUI {
         do {
             System.out.println("Enter index: ");
             input = readLine();
-            if (!Pattern.matches("\\D+", input)) {
-                index = Integer.parseInt(input);
-            } else {
+            if (Pattern.matches("\\D*", input)) {
                 System.out.println("Wrong input, try again");
+            } else {
+                index = Integer.parseInt(input);
             }
         } while (index <= 0 || index > register.getCount());
         Person person = register.getPerson(index - 1);
