@@ -1,8 +1,6 @@
 package register;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,11 +47,16 @@ public class ConsoleUI {
                     findInRegister();
                     break;
                 case EXIT:
+                    saveRegister();
                     return;
             }
         }
     }
-    
+
+    private void saveRegister() {
+        register.saveRegisterIntoFile();
+    }
+
     private String readLine() {
         //In JDK 6.0 and above Console class can be used
         //return System.console().readLine();

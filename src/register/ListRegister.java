@@ -1,19 +1,29 @@
 package register;
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class ListRegister implements Register {
+public class ListRegister implements Register, Serializable {
 
     private int count;
     private List<Person> persons;
+    public static final String FILENAME = "RegisterFile.bin";
 
     public ListRegister() {
         persons = new ArrayList<>();
     }
 
-    @Override
+    public void saveRegisterIntoFile() {
+        try (FileOutputStream os = new FileOutputStream(FILENAME);
+             ObjectOutputStream oos = new ObjectOutputStream(os);) {
+            oos.writeObject(persons);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+        @Override
     public int getCount() {
         return count;
     }
@@ -21,6 +31,10 @@ public class ListRegister implements Register {
     @Override
     public int getSize() {
         return persons.size();
+    }
+
+    public String getFilename() {
+        return FILENAME;
     }
 
     @Override
