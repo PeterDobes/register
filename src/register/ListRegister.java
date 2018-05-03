@@ -6,12 +6,22 @@ import java.util.List;
 
 public class ListRegister implements Register, Serializable {
 
-    private int count;
     private List<Person> persons;
     public static final String FILENAME = "RegisterFile.bin";
 
     public ListRegister() {
         persons = new ArrayList<>();
+
+        loadRegister();
+    }
+
+    private void loadRegister() {
+        try (FileInputStream is = new FileInputStream(FILENAME);
+             ObjectInputStream ois = new ObjectInputStream(is)) {
+            persons = (List<Person>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("No previous records exist or file 'RegisterFile.bin' is corrupt.");
+        }
     }
 
     public void saveRegisterIntoFile() {
@@ -25,7 +35,7 @@ public class ListRegister implements Register, Serializable {
 
         @Override
     public int getCount() {
-        return count;
+        return persons.size();
     }
 
     @Override
@@ -47,7 +57,6 @@ public class ListRegister implements Register, Serializable {
         if(findPersonByName(person.getName()) == null &&
                 findPersonByPhoneNumber(person.getPhoneNumber()) == null) {
             persons.add(person);
-            count++;
         }
     }
 
@@ -75,7 +84,6 @@ public class ListRegister implements Register, Serializable {
     public void removePerson(Person person) {
         if (persons.contains(person)) {
             persons.remove(person);
-            count--;
         }
     }
 }
